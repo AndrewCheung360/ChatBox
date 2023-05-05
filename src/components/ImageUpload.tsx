@@ -52,9 +52,9 @@ export default function ImageUpload(ImgUploadProps: ImageUploadComponentPropType
   };
   return (
     <>
-      <div className=" max-w-[400px] w-[100%] bg-blue-100 p-[30px] rounded-2xl flex flex-col gap-5">
+      <div className=" w-[100%] h-[100%] bg-blue-100 p-[30px] rounded-2xl flex flex-col gap-5">
         <div
-          className=" relative w-[100%] h-[200px] bg-white rounded-xl border-dashed border-blue-400 hover:border-blue-600 hover:border-[3px] border-2 overflow-hidden flex justify-center items-center flex-col gap-2"
+          className=" relative w-[100%] h-[100%] bg-white rounded-xl border-dashed border-blue-400 hover:border-blue-600 hover:border-[3px] border-2 overflow-hidden flex justify-center items-center flex-col gap-2"
           onClick={handleSelectImageClick}
         >
           {imageURL ? (
@@ -71,9 +71,9 @@ export default function ImageUpload(ImgUploadProps: ImageUploadComponentPropType
             >
               <CloudUpload
                 className="text-blue-500"
-                size = {64}
+                size = {80}
               />
-              <h3 className=" font-bold text-xl text-blue-500">Select Image</h3>
+              <h3 className=" font-bold text-3xl text-blue-500">Select Image</h3>
             </label>
           )}
           <input
