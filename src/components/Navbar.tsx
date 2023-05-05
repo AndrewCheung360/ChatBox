@@ -3,11 +3,13 @@ import { createStyles, Navbar, Group, Code, getStylesRef, rem } from '@mantine/c
 import {
   Home,
   MessageCircle2,
-  Man,
+  MessageChatbot,
   MoodSmileBeam,
   SwitchHorizontal,
   Logout,
+  UserCircle
 } from 'tabler-icons-react';
+import Link from 'next/link'
 
 const useStyles = createStyles((theme) => ({
   header: {
@@ -29,11 +31,12 @@ const useStyles = createStyles((theme) => ({
     display: 'flex',
     alignItems: 'center',
     textDecoration: 'none',
-    fontSize: theme.fontSizes.sm,
+    fontSize: theme.fontSizes.md,
     color: theme.colorScheme === 'dark' ? theme.colors.dark[1] : theme.colors.gray[7],
-    padding: `${theme.spacing.xs} ${theme.spacing.sm}`,
+    padding: `${theme.spacing.sm} ${theme.spacing.md}`,
     borderRadius: theme.radius.sm,
     fontWeight: 500,
+    marginBottom: theme.spacing.lg,
 
     '&:hover': {
       backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[6] : theme.colors.gray[0],
@@ -63,36 +66,33 @@ const useStyles = createStyles((theme) => ({
 }));
 
 const data = [
-  { link: '', label: 'Home', icon: Home },
-  { link: '', label: 'Post', icon: MessageCircle2 },
-  { link: '', label: 'Profile', icon: Man },
+  { link: '/', label: 'Home', icon: Home },
+  { link: '/CreatePost', label: 'Post', icon: MessageCircle2 },
+  { link: '/Profile', label: 'Profile', icon: UserCircle },
 ];
 
-export function NavbarSimple() {
+export default function NavbarSimple() {
   const { classes, cx } = useStyles();
   const [active, setActive] = useState('Billing');
 
-  const links = data.map((item) => (
-    <a
-      className={cx(classes.link, { [classes.linkActive]: item.label === active })}
-      href={item.link}
-      key={item.label}
-      onClick={(event) => {
-        event.preventDefault();
-        setActive(item.label);
-      }}
-    >
-      <item.icon className={classes.linkIcon} strokeWidth={1.5} />
-      <span>{item.label}</span>
-    </a>
-  ));
+const links = data.map((item) => (
+  <Link href={item.link} key={item.label} className={cx(classes.link, { [classes.linkActive]: item.label === active })}
+  onClick={(event) => {
+    setActive(item.label);
+  }}
+>
+  <item.icon className={classes.linkIcon} strokeWidth={1.5} />
+  <span>{item.label}</span>
+</Link>
 
+
+));
   return (
     <Navbar height={700} width={{ sm: 300 }} p="md">
       <Navbar.Section grow>
-        <Group className={classes.header} position="apart">
-          <MoodSmileBeam size={28} />
-          {/* <Code sx={{ fontWeight: 700 }}>v3.1.2</Code> */}
+        <Group className={classes.header} >
+          <MessageChatbot size={28} />
+          <span style = {{fontWeight:'bold',fontSize:'24px'}}>ChatBox</span>
         </Group>
         {links}
       </Navbar.Section>
