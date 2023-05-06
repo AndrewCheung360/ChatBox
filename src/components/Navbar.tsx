@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState, } from 'react';
 import { createStyles, Navbar, Group, Code, getStylesRef, rem } from '@mantine/core';
 import {
   Home,
@@ -10,6 +10,7 @@ import {
   UserCircle
 } from 'tabler-icons-react';
 import Link from 'next/link'
+import Router,{useRouter} from 'next/router'
 
 const useStyles = createStyles((theme) => ({
   header: {
@@ -73,20 +74,36 @@ const data = [
 
 export default function NavbarSimple() {
   const { classes, cx } = useStyles();
-  const [active, setActive] = useState('Billing');
+  const [active, setActive] = useState(data[0].label);
+  const router = useRouter()
+  useEffect(() => {
+    const handleRouteChange = () => {
+      const path = router.pathname;
+      const label = data.find((item) => item.link === path)?.label;
+      if (label) {
+        setActive(label);
+      }
+    };
 
-const links = data.map((item) => (
-  <Link href={item.link} key={item.label} className={cx(classes.link, { [classes.linkActive]: item.label === active })}
-  onClick={(event) => {
-    setActive(item.label);
-  }}
->
-  <item.icon className={classes.linkIcon} strokeWidth={1.5} />
-  <span>{item.label}</span>
-</Link>
+    handleRouteChange(); 
 
+    router.events.on('routeChangeComplete', handleRouteChange);
 
-));
+    return () => {
+      router.events.off('routeChangeComplete', handleRouteChange);
+    };
+  }, [router.events, router.pathname]);
+  const links = data.map((item) => (
+    <Link href={item.link} key={item.label} className={cx(classes.link, { [classes.linkActive]: item.label === active })}
+      onClick={(event) => {
+        event.preventDefault();
+        router.push(item.link)
+      }}
+    >
+      <item.icon className={classes.linkIcon} strokeWidth={1.5} />
+      <span>{item.label}</span>
+    </Link>
+  ));
   return (
     <Navbar height={700} width={{ sm: 300 }} p="md">
       <Navbar.Section grow>

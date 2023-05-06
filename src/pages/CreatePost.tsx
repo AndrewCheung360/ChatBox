@@ -7,10 +7,10 @@ export default function CreatePost () {
             
             <div className = "flex">
                 <Navbar/>
-                <div className = "w-full h-full flex flex-col items-center justify-start">
-                <div className="w-[700px] h-[500px] flex items-center justify-center p-6">
-      <ImageUpload size={1000000} />
-    </div>
+                <div className = "flex flex-grow items-center justify-center p-8">
+                    <div className="w-[900px] h-[700px] flex items-center justify-center p-6">
+                        <ImageUpload size={1000000} />
+                    </div>
                 </div>
                 
                 
