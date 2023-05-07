@@ -30,7 +30,7 @@ export default function Home() {
     <>
     <div className = "flex">
       <Navbar/>
-      <div className = "flex flex-grow flex-col items-center justify-center gap-8 p-8">
+      <div className = "flex flex-grow flex-col items-center justify-center gap-8 pl-[400px] py-8">
         {postList.map((post) => {
           return(
             <Post imageURL={post.imageURL} caption={post.caption} userName={post.userName} key={post.caption}/>

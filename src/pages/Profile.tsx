@@ -7,8 +7,8 @@ export default function Profile() {
         <>
            <div className = "flex w-full h-full">
                 <Navbar/>
-                <div className = "flex flex-col w-full">
-                    <div className = "flex flex-col w-full border-2 border-gray-200">
+                <div className = "flex flex-col w-full pl-[400px]">
+                    <div className = "flex flex-col w-full border-2 border-gray-200 rounded-md">
                         <div className = "flex flex-col gap-11">
                         <div className = "relative">
                             <div className = "h-72">

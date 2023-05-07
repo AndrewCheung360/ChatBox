@@ -13,6 +13,13 @@ import Link from 'next/link'
 import Router,{useRouter} from 'next/router'
 
 const useStyles = createStyles((theme) => ({
+  fixedNavbar: {
+    position: 'fixed',
+    top: 0,
+    left: 0,
+    right: 0,
+    zIndex: 999,
+  },
   header: {
     paddingBottom: theme.spacing.md,
     marginBottom: `calc(${theme.spacing.md} * 1.5)`,
@@ -105,7 +112,8 @@ export default function NavbarSimple() {
     </Link>
   ));
   return (
-    <Navbar height={700} width={{ sm: 300 }} p="md">
+    <div style={{ minHeight: '100vh' }}>
+      <Navbar className={classes.fixedNavbar} width = {{sm:400}} p="md" >
       <Navbar.Section grow>
         <Group className={classes.header} >
           <MessageChatbot size={28} />
@@ -126,5 +134,7 @@ export default function NavbarSimple() {
         </a>
       </Navbar.Section>
     </Navbar>
+    </div>
+    
   );
 }
