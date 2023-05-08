@@ -22,7 +22,7 @@ export default function Post(postProps: PostPropsType){
                         <UserCircle className = "w-10 h-10"/>
                         <span className = "font-semibold text-lg">{postProps.userName}</span>
                     </div>
-                    <button className = {followed ? "p-2 bg-blue-500 text-white font-semibold border rounded-md hover:bg-blue-400 mr-3" : "py-1 px-3 bg-gray-500 text-white font-semibold border rounded-md hover:bg-blue-400 mr-3"} onClick = {()=>{
+                    <button className = {followed ? "p-2 bg-gray-500 text-white font-semibold border rounded-md hover:bg-blue-400 mr-3" : "py-1 px-3 bg-blue-500 text-white font-semibold border rounded-md hover:bg-blue-400 mr-3"} onClick = {()=>{
                         setFollowed(!followed)
                     }}>
                         {followed ? "Followed" : "Follow"}
