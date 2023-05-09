@@ -2,15 +2,14 @@ import React, { useState } from 'react'
 import { UserCircle} from 'tabler-icons-react'
 import Image from 'next/image'
 import { IconHeartFilled, IconSend, IconMessageCircle2, IconBookmark } from '@tabler/icons-react'
-
-export type PostPropsType = {
-    imageURL: string,
-    caption: string,
-    userName: string
-}
+import { PostPropsType } from '../../types'
+import { collection, deleteDoc, doc, updateDoc } from "firebase/firestore"
+import { db } from "../../util/firebase"
+import { useAuth } from '../components/auth/AuthUserProvider'
 
 
 export default function Post(postProps: PostPropsType){
+    const { user } = useAuth();
     const [liked, setLiked] = useState(false)
     const [bookmarked, setBookmarked] = useState(false)
     const [followed, setFollowed] = useState(false)
@@ -20,7 +19,7 @@ export default function Post(postProps: PostPropsType){
                 <div className = "flex justify-between">
                     <div className = "flex items-center gap-4">
                         <UserCircle className = "w-10 h-10"/>
-                        <span className = "font-semibold text-lg">{postProps.userName}</span>
+                        <span className = "font-semibold text-lg">{postProps.user}</span>
                     </div>
                     <button className = {followed ? "p-2 bg-gray-500 text-white font-semibold border rounded-md hover:bg-blue-400 mr-3" : "py-1 px-3 bg-blue-500 text-white font-semibold border rounded-md hover:bg-blue-400 mr-3"} onClick = {()=>{
                         setFollowed(!followed)

@@ -8,7 +8,7 @@ export default function CreatePost () {
             <div className = "flex">
                 <Navbar/>
                 <div className = "flex flex-grow items-center justify-center pl-[400px]">
-                    <div className="w-[900px] h-[700px] flex items-center justify-center p-6">
+                    <div className="w-[800px] h-[600px] flex items-center justify-center p-6">
                         <ImageUpload size={1000000} />
                     </div>
                 </div>

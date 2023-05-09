@@ -1,6 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
 import {CloudUpload} from "tabler-icons-react"
-import Caption from "../components/Caption"
 
 //takes in size in bytes for limitation
 type ImageUploadComponentPropTypes = {
@@ -14,7 +13,7 @@ export default function ImageUpload(ImgUploadProps: ImageUploadComponentPropType
 
   //creates a state to store image file url as a string
   const [imageURL, setImageURL] = useState<string | null>(null);
-
+  const [text,setText] = useState<string>('')
   //function is called when anywhere within the div or the image is clicked
   const handleSelectImageClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     //returns early and stops event from triggering more than once per click if event does not start from div element
@@ -49,6 +48,10 @@ export default function ImageUpload(ImgUploadProps: ImageUploadComponentPropType
       // clears the file input value to prevent caching of the selected file
       e.target.value = "";
     }
+  };
+
+  const handleInputChange = (event: { target: { value: React.SetStateAction<string>; }; }) => {
+    setText(event.target.value);
   };
   return (
     <>
@@ -85,7 +88,7 @@ export default function ImageUpload(ImgUploadProps: ImageUploadComponentPropType
             onChange={handleImageFileChange}
           />
         </div>
-        <Caption/>
+        <input value = {text} onChange = {handleInputChange} placeholder="Describe your post" className = "p-2 border rounded-lg"/>
         <button className=" bg-blue-500 text-white font-semibold text-xl p-2 mt-2 rounded-lg hover:bg-blue-600 active:bg-blue-700"
         >
           Post

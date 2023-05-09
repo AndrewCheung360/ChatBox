@@ -11,6 +11,8 @@ import {
 } from 'tabler-icons-react';
 import Link from 'next/link'
 import Router,{useRouter} from 'next/router'
+import { useAuth } from "../components/auth/AuthUserProvider"
+import { signInWithGoogle, signOut } from "../../util/firebase"
 
 const useStyles = createStyles((theme) => ({
   fixedNavbar: {
@@ -83,6 +85,9 @@ export default function NavbarSimple() {
   const { classes, cx } = useStyles();
   const [active, setActive] = useState(data[0].label);
   const router = useRouter()
+  const { user } = useAuth();
+
+  const { displayName, email, photoURL } = user || {};
   useEffect(() => {
     const handleRouteChange = () => {
       const path = router.pathname;
@@ -123,15 +128,23 @@ export default function NavbarSimple() {
       </Navbar.Section>
 
       <Navbar.Section className={classes.footer}>
-        <a href="#" className={classes.link} onClick={(event) => event.preventDefault()}>
-          <SwitchHorizontal className={classes.linkIcon} strokeWidth={1.5} />
-          <span>Change account</span>
-        </a>
+        { user ? 
+        <div className = "flex items-center gap-4 p-3 border-2 rounded-lg border-gray-200 mb-4">
 
-        <a href="#" className={classes.link} onClick={(event) => event.preventDefault()}>
-          <Logout className={classes.linkIcon} strokeWidth={1.5} />
-          <span>Logout</span>
-        </a>
+          <UserCircle className = "w-12 h-12 border-4 rounded-full border-blue-400 "/>
+          
+          <div className = "flex flex-col">
+            <span className = "font-bold text-xl">{displayName}</span>
+            <span className = "text-sm text-gray-500">{email}</span>
+          </div>
+        </div>: <></>}
+        <button onClick = {user ? signOut : signInWithGoogle}>
+          <div className = "flex items-center gap-3 p-3 border-2 rounded-xl border-gray-200 hover:bg-gray-100">
+            <img className = "w-6 h-6" src = "https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/2008px-Google_%22G%22_Logo.svg.png"/>
+            <span className = " font-semibold">{user ? "Sign Out of Google" : "Sign In with Google"}</span>
+          </div>
+        </button>
+      
       </Navbar.Section>
     </Navbar>
     </div>
