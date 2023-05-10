@@ -1,5 +1,5 @@
 import { useEffect, useState, } from 'react';
-import { createStyles, Navbar, Group, Code, getStylesRef, rem } from '@mantine/core';
+import { createStyles, Navbar, Group, Code, getStylesRef, rem, Image } from '@mantine/core';
 import {
   Home,
   MessageCircle2,
@@ -131,7 +131,13 @@ export default function NavbarSimple() {
         { user ? 
         <div className = "flex items-center gap-4 p-3 border-2 rounded-lg border-gray-200 mb-4">
 
-          <UserCircle className = "w-12 h-12 border-4 rounded-full border-blue-400 "/>
+{photoURL && (
+                <img
+                  className=" p-1 w-12 h-12 rounded-full"
+                  src={photoURL}
+                  alt="Profile Picture"
+                />
+              )}
           
           <div className = "flex flex-col">
             <span className = "font-bold text-xl">{displayName}</span>
