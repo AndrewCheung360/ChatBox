@@ -5,3 +5,8 @@ export type PostPropsType = {
     likes:number,
 }
 
+export type PostPropsTypeWithID = PostPropsType & {
+    id: string
+}
+
+
