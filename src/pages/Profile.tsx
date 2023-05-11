@@ -1,13 +1,37 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
 import ProfilePicUpload from "../components/ProfilePicUpload";
 import { useAuth } from "../components/auth/AuthUserProvider";
 import { signInWithGoogle, db } from "../../util/firebase";
+import { query, collection, onSnapshot, where } from "firebase/firestore";
+import { PostPropsType } from "../../types";
+import PostList from "@/components/PostList";
 export default function Profile() {
   const { user } = useAuth();
   const [followers, setFollowers] = useState(0);
   const [followed, setFollowed] = useState(0);
   const [numPosts,setNumPosts] = useState(0)
+
+  const [posts, setTasks] = useState<Array<PostPropsType> | null>(null)
+
+
+  const taskQuery = query(
+    collection(db, "posts"),
+    where("owner", "==", user!.email!)
+
+  )
+
+  useEffect(() => {
+    const unsubscribe = onSnapshot(taskQuery, (querySnapshot) => {
+      const snapshotTasks: Array<PostPropsType> = querySnapshot.docs.map((doc) => {
+        const data = doc.data() as PostPropsType
+        return { ...data}
+      })
+      setTasks(snapshotTasks)
+    })
+    return unsubscribe
+  }, [])
+
   return (
     <>
       <div className="flex w-full h-full">
@@ -54,6 +78,16 @@ export default function Profile() {
                     {user!.displayName}
                   </span>
                   <span></span>
+                </div>
+                <div className = "flex flex-grow flex-col items-center justify-center gap-8 pl-[400px] py-8">
+       
+                {posts ? (
+                <>
+                  <PostList posts={posts}/>
+                  </>
+                ): (
+                  <></>
+                 )}
                 </div>
               </div>
             </div>
