@@ -7,5 +7,5 @@ Andrew Cheung (aec295),
 Brandon O'Connor (bwo9),
 Evan Zhu (ejz26)
 
-deployment Link: [https://chat-box-git-main-dashingdolphin.vercel.app/](https://chat-box-phi.vercel.app/)https://chat-box-phi.vercel.app/
+deployment Link: https://chat-box-phi.vercel.app/
 
